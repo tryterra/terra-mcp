@@ -1,6 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 import requests
-from typing import Optional, Any, list
+from typing import Optional, Any
 import os
 from dotenv import load_dotenv
 
@@ -62,9 +62,6 @@ def terra_get_detailed_integrations(sdk: Optional[bool] = None) -> str:
         headers=get_default_headers(),
     )
     return data.json()
-
-
-# DESTINATION ENDPOINTS
 
 
 @mcp.tool()
