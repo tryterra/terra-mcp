@@ -26,7 +26,11 @@ mcp dev server.py
         "/ABSOLUTE/PATH/TO/terra-mcp",
         "run",
         "server.py"
-      ]
+      ],
+      "env": {
+        "TERRA_API_KEY": "your_api_key_here",
+        "TERRA_DEV_ID": "your-dev-id-here",
+      }
     }
   }
 }
