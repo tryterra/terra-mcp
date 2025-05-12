@@ -2,9 +2,6 @@ from mcp.server.fastmcp import FastMCP
 import requests
 from typing import Optional, Any
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Create an MCP server
 mcp = FastMCP("Terra MCP Server", dependencies=["requests"])
@@ -536,6 +533,17 @@ def get_dev_id() -> str:
         raise ValueError(
             "Developer ID is not set. Please set the TERRA_DEV_ID environment variable."
         )
+
+# About Terra
+
+
+@mcp.resource("config://about")
+def get_about() -> str:
+    """Get about information"""
+    return (
+        "The Terra API standardizes health and fitness data, allowing you to use it structured and efficient manner, no matter the source."
+        "It allows developers to integrate and manage their data sources easily."
+    )
 
 
 if __name__ == "__main__":
