@@ -11,6 +11,16 @@ A Model Context Protocol server that allows LLMs to configure the [TerraAPI dash
 When using [`uv`](https://docs.astral.sh/uv/) no specific installation is needed. We will
 use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *terramcp*.
 
+#### `uv` Installation
+_Mac / Linux_
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+_Windows_
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
 ### Using PIP
 
 Alternatively you can install `terramcp` via pip:
