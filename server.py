@@ -4,7 +4,7 @@ from typing import Optional, Any
 import os
 
 # Create an MCP server
-mcp = FastMCP("Terra MCP Server", dependencies=["requests"])
+mcp = FastMCP("Terra Dashboard MCP Server", dependencies=["requests"])
 
 BASE_API_URL = "https://api.tryterra.co/v2"
 
