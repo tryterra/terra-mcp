@@ -150,7 +150,7 @@ Add to your Claude settings:
       "args": ["terramcp"],
       "env": {
         "TERRA_API_KEY": "your_api_key_here",
-        "TERRA_DEV_ID": "your-dev-id-here",
+        "TERRA_DEV_ID": "your-dev-id-here"
       }
     }
   }
@@ -170,7 +170,7 @@ Add to your Claude settings:
       "args": ["-m", "terramcp"],
       "env": {
         "TERRA_API_KEY": "your_api_key_here",
-        "TERRA_DEV_ID": "your-dev-id-here",
+        "TERRA_DEV_ID": "your-dev-id-here"
       }
     }
   }
@@ -193,7 +193,7 @@ Add to your Zed settings.json:
     "args": ["terramcp"],
     "env": {
         "TERRA_API_KEY": "your_api_key_here",
-        "TERRA_DEV_ID": "your-dev-id-here",
+        "TERRA_DEV_ID": "your-dev-id-here"
     }
   }
 ],
@@ -211,7 +211,7 @@ Add to your Zed settings.json:
     "args": ["-m", "terramcp"],
     "env": {
         "TERRA_API_KEY": "your_api_key_here",
-        "TERRA_DEV_ID": "your-dev-id-here",
+        "TERRA_DEV_ID": "your-dev-id-here"
     }
   }
 },
@@ -244,7 +244,7 @@ Optionally, you can add it to a file called `.vscode/mcp.json` in your workspace
         "args": ["terramcp"],
         "env": {
             "TERRA_API_KEY": "your_api_key_here",
-            "TERRA_DEV_ID": "your-dev-id-here",
+            "TERRA_DEV_ID": "your-dev-id-here"
         }
       }
     }
