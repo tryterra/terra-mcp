@@ -97,7 +97,7 @@ A Model Context Protocol server that allows LLMs to configure the [TerraAPI dash
 
 ## Installation
 
-> [! NOTE]
+> [!NOTE]
 > You will need your [`TERRA_API_KEY`](https://docs.tryterra.co/reference/health-and-fitness-api/core-concepts#api-key) and [`TERRA_DEV_ID`](https://docs.tryterra.co/reference/health-and-fitness-api/core-concepts#developer-id-dev-id) which is available from the [dashboard](https://dashboard.tryterra.co/)
 
 ### Using uv (recommended)
