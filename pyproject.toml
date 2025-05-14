@@ -1,11 +1,15 @@
 [project]
 name = "terra-mcp"
 version = "0.1.0"
-description = "Add your description here"
+description = "Terra Dashboard MCP - A MCP server for managing your Terra Dashboard."
+authors = [
+    { name = "Terra Team", email = "dev@tryterra.co" },
+    { name = "Sim Shang En", email = "shangen@tryterra.co"}
+]
+license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "black>=25.1.0",
     "mcp[cli]>=1.7.1",
     "requests>=2.32.3",
 ]
