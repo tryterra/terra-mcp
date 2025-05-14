@@ -164,3 +164,7 @@ Or if you've installed the package in a specific directory or are developing on 
 cd path/to/servers/src/terramcp
 npx @modelcontextprotocol/inspector uv run terramcp
 ```
+
+## License
+
+terramcp is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the [LICENSE](https://github.com/tryterra/terramcp/blob/master/LICENSE) file in the project repository.
