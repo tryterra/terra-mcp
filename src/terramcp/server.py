@@ -2,6 +2,7 @@ from fastmcp import FastMCP
 import requests
 from typing import Optional, Any
 import os
+from enum import Enum
 
 mcp = FastMCP(name="Terra Dashboard MCP Server",
               instructions="Use this MCP server to configure your Terra Application", dependencies=["requests"])
@@ -503,6 +504,43 @@ def search_documentation(
         headers=get_default_headers(),
     )
     return response.json().get("content", "No response was received.")
+
+
+class Data_Type(Enum):
+    """Enum for data types"""
+    BODY = "Body"
+    NUTRITION = "Nutrition"
+    MENSTRUATION = "Menstruation"
+    SLEEP = "Sleep"
+    DAILY = "Daily"
+    ACTIVITY = "Activity"
+
+
+@mcp.tool()
+def generate_dummy_data(type: str, user_id: str, reference_id: str, webhook_url: str, for_provider: str, to_send: bool) -> str:
+    """
+    Generate dummy data for testing purposes.
+    Terra will POST data to the webhook URL specified if to_send is true.
+    This is useful for testing your application and ensuring that it can handle data from different providers.
+
+    Args:
+        type (str): The type of data to generate. Possible values ['Body','Nutrition','Menstruation','Sleep','Daily','Activity']
+        user_id (str): The user ID to associate with the generated data.
+        reference_id (str): The reference ID for the generated data.
+        webhook_url (str): The webhook URL to send the generated data to.
+        for_provider (str): The provider to use for generating the data. Possible values ['apple','concept2','eight','fitbit','freestylelibre','garmin','google','ifit','oura','peloton','polar','samsung','suunto','omron','coros','tempo','trainingpeaks','wahoo','whoop','wearos','withings','zwift','fatsecret','cronometer','myfitnesspal','nutracheck','underarmour','googlefit']
+        to_send (bool): If true, send the generated data to the webhook URL. Else, just generate the data.
+    Returns:
+        str: The response from the API.
+    """
+    params = {"type": type, "dev_id": DEV_ID, "send": "true" if to_send else "false", "user_id": user_id,
+              "reference_id": reference_id, "webhook_url": webhook_url, "for_provider": for_provider}
+    response = requests.get(
+        f"{BASE_API_URL}/dashboard/generateData",
+        params=params,
+        headers=get_default_headers(),
+    )
+    return response.json()
 
 
 @mcp.resource("docs://v5_api")
