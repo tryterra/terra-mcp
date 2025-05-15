@@ -544,6 +544,35 @@ def generate_dummy_data(type: str, user_id: str, reference_id: str, webhook_url:
     return response.json()
 
 
+@mcp.tool()
+def get_webhook_history(
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+) -> dict[str, Any]:
+    """
+    Get paginated webhook history.
+
+    Args:
+        start_date (Optional[str]): The start date for the webhook history in ISO format (YYYY-MM-DD).
+        end_date (Optional[str]): The end date for the webhook history in ISO format (YYYY-MM-DD).
+
+    Returns:
+        dict[str, Any]: Webhook history
+    """
+    params = {}
+    if start_date:
+        params["start_date"] = start_date
+    if end_date:
+        params["end_date"] = end_date
+
+    response = requests.get(
+        f"{BASE_API_URL}/dashboard/webhooks",
+        params=params,
+        headers=get_default_headers(),
+    )
+    return response.json()
+
+
 @mcp.resource("docs://v5_api")
 def get_docs() -> str:
     """Get minifed v5 TerraAPI OpenAPI documentation"""
