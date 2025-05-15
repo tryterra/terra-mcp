@@ -97,7 +97,7 @@ A Model Context Protocol server that allows LLMs to configure the [TerraAPI dash
 * `search_documentation`
   * Description: Allows the MCP client to search our [docs](https://docs.tryterra.co/).
   * Parameters:
-    * `query` (str): Sarch query.
+    * `query` (str): Search query.
 
 ## Installation
 
