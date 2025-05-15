@@ -3,7 +3,6 @@ import requests
 from typing import Optional, Any
 import os
 
-# Create an MCP server
 mcp = FastMCP(name="Terra Dashboard MCP Server",
               instructions="Use this MCP server to configure your Terra Application", dependencies=["requests"])
 
@@ -13,12 +12,9 @@ BASE_API_URL = "https://api.tryterra.co/v2"
 API_KEY = os.getenv("TERRA_API_KEY")
 DEV_ID = os.getenv("TERRA_DEV_ID")
 
-# Default headers with API key
-
 
 def get_default_headers():
-    headers = {"X-API-Key": API_KEY}
-    headers["dev-id"] = DEV_ID
+    headers = {"X-API-Key": API_KEY, "dev-id": DEV_ID, "User-Agent": "Terra-MCP/1.0.0"}
     return headers
 
 
@@ -483,7 +479,60 @@ def get_custom_credentials(
     return response.json()
 
 
+@mcp.tool()
+def search_documentation(
+    query: str
+) -> dict[str, Any]:
+    """
+    Search documentation using AI.
+    Use this whenever you are unsure about the API or how to use it.
+    Ask questions like "How do I build a application that integrates with Terra?" or "What is the best way to integrate with the API?"
+
+    Args:
+        query (str): The search query. Written in natural language.
+        This will be used to search the documentation.
+
+    Returns:
+        str: Response from the AI model.
+    """
+    params = {"query": query}
+
+    response = requests.post(
+        "https://ubd7f3f36wgejf3kvci5647fby0ueuvi.lambda-url.eu-west-1.on.aws",
+        json=params,
+        headers=get_default_headers(),
+    )
+    return response.json().get("content", "No response was received.")
+
+
+@mcp.resource("docs://v5_api")
+def get_docs() -> str:
+    """Get minifed v5 TerraAPI OpenAPI documentation"""
+    URL = "https://raw.githubusercontent.com/tryterra/llms.txt/refs/heads/master/chunked/v5.txt"
+    response = requests.get(URL)
+    if response.status_code == 200:
+        return response.text
+    else:
+        raise ValueError(
+            "Failed to fetch documentation. Please check the URL or your network connection."
+        )
+
+
+@mcp.resource("docs://rt_api")
+def get_rt_docs() -> str:
+    """Get minifed real-time TerraAPI OpenAPI documentation"""
+    URL = "https://raw.githubusercontent.com/tryterra/llms.txt/refs/heads/master/chunked/rt.txt"
+    response = requests.get(URL)
+    if response.status_code == 200:
+        return response.text
+    else:
+        raise ValueError(
+            "Failed to fetch documentation. Please check the URL or your network connection."
+        )
+
 # Check if API key is set
+
+
 @mcp.resource("config://api_key")
 def get_api_key() -> str:
     """Get the API key"""
