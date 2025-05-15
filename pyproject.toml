@@ -1,6 +1,6 @@
 [project]
 name = "terramcp"
-version = "0.1.1"
+version = "0.1.3"
 description = "Terra Dashboard MCP - A MCP server for managing your Terra Dashboard."
 authors = [
     { name = "Terra Team", email = "dev@tryterra.co" },
