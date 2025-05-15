@@ -522,6 +522,7 @@ def generate_dummy_data(type: str, user_id: str, reference_id: str, webhook_url:
     Generate dummy data for testing purposes.
     Terra will POST data to the webhook URL specified if to_send is true.
     This is useful for testing your application and ensuring that it can handle data from different providers.
+    Generated data confoms to the webhook data model.
 
     Args:
         type (str): The type of data to generate. Possible values ['Body','Nutrition','Menstruation','Sleep','Daily','Activity']
