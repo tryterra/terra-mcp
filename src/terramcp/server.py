@@ -545,25 +545,44 @@ def generate_dummy_data(type: str, user_id: str, reference_id: str, webhook_url:
 
 
 @mcp.tool()
-def get_webhook_history(
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+def get_paginated_webhook_history(
+    start_date: str,
+    end_date: str,
+    limit: int,
+    offset: int,
+    provider: Optional[str] = None,
+    data_type: Optional[str] = None,
+    user_id: Optional[str] = None,
+    reference_id: Optional[str] = None,
 ) -> dict[str, Any]:
     """
     Get paginated webhook history.
+    The webhook history is paginated, so you can use the limit and offset parameters to get a specific page of results.
 
     Args:
-        start_date (Optional[str]): The start date for the webhook history in ISO format (YYYY-MM-DD).
-        end_date (Optional[str]): The end date for the webhook history in ISO format (YYYY-MM-DD).
+        start_timestamp (str): The start date for the webhook history in ISO 8601 format.
+        end_timestamp (str): The end date for the webhook history in ISO 8601 format.
+        limit (int): The number of records to return per page.
+        offset (int): The offset for pagination.
+        provider (Optional[str]): The provider to filter by.
+        data_type (Optional[str]): The data type to filter by.
+        user_id (Optional[str]): The user ID to filter by.
+        reference_id (Optional[str]): The reference ID to filter by.
+
 
     Returns:
         dict[str, Any]: Webhook history
     """
-    params = {}
-    if start_date:
-        params["start_date"] = start_date
-    if end_date:
-        params["end_date"] = end_date
+    params = {"start_date": start_date, "end_date": end_date,
+              "limit": limit, "offset": offset}
+    if provider:
+        params["provider"] = provider
+    if data_type:
+        params["data_type"] = data_type
+    if user_id:
+        params["user_id"] = user_id
+    if reference_id:
+        params["reference_id"] = reference_id
 
     response = requests.get(
         f"{BASE_API_URL}/dashboard/webhooks",
