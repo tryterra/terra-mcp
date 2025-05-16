@@ -592,6 +592,28 @@ def get_paginated_webhook_history(
     return response.json()
 
 
+@mcp.tool()
+def resend_webhook(user_id: str, timestamp: str):
+    """
+    Resend a webhook. Looks up the webhook by user_id and timestamp.
+
+    Args:
+        user_id (str): The user ID to resend the webhook to.
+        timestamp (str): The timestamp of the webhook to resend. ISO 8601 format.
+
+    Returns:
+        dict[str, Any]: Response indicating success or failure
+    """
+    params = {"user_id": user_id, "timestamp": timestamp}
+
+    response = requests.post(
+        f"{BASE_API_URL}/dashboard/webhooks/resend",
+        params=params,
+        headers=get_default_headers(),
+    )
+    return response.json()
+
+
 @mcp.resource("docs://v5_api")
 def get_docs() -> str:
     """Get minifed v5 TerraAPI OpenAPI documentation"""
