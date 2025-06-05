@@ -2,6 +2,17 @@
 
 A Model Context Protocol server that allows LLMs to configure the [TerraAPI dashboard](https://dashboard.tryterra.co/).
 
+### Quickstart
+
+Get started quickly with one of these installation options:
+
+**For Cursor users:**
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=terramcp&config=eyJjb21tYW5kIjoidXZ4IHRlcnJhbWNwIiwiZW52Ijp7IlRFUlJBX0FQSV9LRVkiOiJ5b3VyX2FwaV9rZXlfaGVyZSIsIlRFUlJBX0RFVl9JRCI6InlvdXItZGV2LWlkLWhlcmUifX0%3D)
+
+**For VS Code users:**
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=terramcp&config=%7B%22command%22:%22uvx%22,%22args%22:%5B%22terramcp%22%5D%7D)
+
+
 ### Available Tools
 
 * `terra_get_integrations`
