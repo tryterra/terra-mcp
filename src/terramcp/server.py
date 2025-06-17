@@ -1,17 +1,24 @@
-from fastmcp import FastMCP
-import requests
-from typing import Optional, Any
 import os
 from enum import Enum
+from typing import Any, Optional
 
-mcp = FastMCP(name="Terra Dashboard MCP Server",
-              instructions="Use this MCP server to configure your Terra Application", dependencies=["requests"])
+import requests
+from fastmcp import FastMCP
+
+mcp = FastMCP(
+    name="Terra Dashboard MCP Server",
+    instructions="Use this MCP server to configure your Terra Application",
+    dependencies=["requests"],
+)
 
 BASE_API_URL = "https://api.tryterra.co/v2"
 
 # Set the API key from environment variable
 API_KEY = os.getenv("TERRA_API_KEY")
 DEV_ID = os.getenv("TERRA_DEV_ID")
+
+assert API_KEY, "TERRA_API_KEY environment variable is not set."
+assert DEV_ID, "TERRA_DEV_ID environment variable is not set."
 
 
 def get_default_headers():
@@ -74,9 +81,7 @@ def get_destinations() -> dict[str, Any]:
 
 
 @mcp.tool()
-def get_developer_destination_credentials(
-    destination: str
-) -> dict[str, Any]:
+def get_developer_destination_credentials(destination: str) -> dict[str, Any]:
     """
     Get developer destination credentials.
 
@@ -121,9 +126,7 @@ def delete_destination(
 
 
 @mcp.tool()
-def set_destination_state(
-    destination: str, active: bool
-) -> dict[str, Any]:
+def set_destination_state(destination: str, active: bool) -> dict[str, Any]:
     """
     Set destination state (active or inactive).
 
@@ -383,9 +386,7 @@ def deactivate_provider(provider: str) -> dict[str, Any]:
 
 
 @mcp.tool()
-def set_provider_state(
-    provider: str, active: bool
-) -> dict[str, Any]:
+def set_provider_state(provider: str, active: bool) -> dict[str, Any]:
     """
     Set provider state (active or inactive).
 
@@ -458,9 +459,7 @@ def add_custom_credentials(
 
 
 @mcp.tool()
-def get_custom_credentials(
-    provider: str
-) -> dict[str, Any]:
+def get_custom_credentials(provider: str) -> dict[str, Any]:
     """
     Get custom credentials for a provider.
 
@@ -481,9 +480,7 @@ def get_custom_credentials(
 
 
 @mcp.tool()
-def search_documentation(
-    query: str
-) -> dict[str, Any]:
+def search_documentation(query: str) -> dict[str, Any]:
     """
     Search documentation using AI.
     Use this whenever you are unsure about the API or how to use it.
@@ -508,6 +505,7 @@ def search_documentation(
 
 class Data_Type(Enum):
     """Enum for data types"""
+
     BODY = "Body"
     NUTRITION = "Nutrition"
     MENSTRUATION = "Menstruation"
@@ -517,7 +515,14 @@ class Data_Type(Enum):
 
 
 @mcp.tool()
-def generate_dummy_data(type: str, user_id: str, reference_id: str, webhook_url: str, for_provider: str, to_send: bool) -> str:
+def generate_dummy_data(
+    type: str,
+    user_id: str,
+    reference_id: str,
+    webhook_url: str,
+    for_provider: str,
+    to_send: bool,
+) -> str:
     """
     Generate dummy data for testing purposes.
     Terra will POST data to the webhook URL specified if to_send is true.
@@ -534,8 +539,15 @@ def generate_dummy_data(type: str, user_id: str, reference_id: str, webhook_url:
     Returns:
         str: The response from the API.
     """
-    params = {"type": type, "dev_id": DEV_ID, "send": "true" if to_send else "false", "user_id": user_id,
-              "reference_id": reference_id, "webhook_url": webhook_url, "for_provider": for_provider}
+    params = {
+        "type": type,
+        "dev_id": DEV_ID,
+        "send": "true" if to_send else "false",
+        "user_id": user_id,
+        "reference_id": reference_id,
+        "webhook_url": webhook_url,
+        "for_provider": for_provider,
+    }
     response = requests.get(
         f"{BASE_API_URL}/dashboard/generateData",
         params=params,
@@ -573,8 +585,12 @@ def get_paginated_webhook_history(
     Returns:
         dict[str, Any]: Webhook history
     """
-    params = {"start_date": start_date, "end_date": end_date,
-              "limit": limit, "offset": offset}
+    params = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "limit": limit,
+        "offset": offset,
+    }
     if provider:
         params["provider"] = provider
     if data_type:
@@ -614,31 +630,6 @@ def resend_webhook(user_id: str, timestamp: str):
     return response.json()
 
 
-@mcp.resource("docs://v5_api")
-def get_docs() -> str:
-    """Get minifed v5 TerraAPI OpenAPI documentation"""
-    URL = "https://raw.githubusercontent.com/tryterra/llms.txt/refs/heads/master/chunked/v5.txt"
-    response = requests.get(URL)
-    if response.status_code == 200:
-        return response.text
-    else:
-        raise ValueError(
-            "Failed to fetch documentation. Please check the URL or your network connection."
-        )
-
-
-@mcp.resource("docs://rt_api")
-def get_rt_docs() -> str:
-    """Get minifed real-time TerraAPI OpenAPI documentation"""
-    URL = "https://raw.githubusercontent.com/tryterra/llms.txt/refs/heads/master/chunked/rt.txt"
-    response = requests.get(URL)
-    if response.status_code == 200:
-        return response.text
-    else:
-        raise ValueError(
-            "Failed to fetch documentation. Please check the URL or your network connection."
-        )
-
 # Check if API key is set
 
 
@@ -664,8 +655,8 @@ def get_dev_id() -> str:
             "Developer ID is not set. Please set the TERRA_DEV_ID environment variable."
         )
 
-# About Terra
 
+# About Terra
 
 @mcp.resource("config://about")
 def get_about() -> str:
