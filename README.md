@@ -105,10 +105,6 @@ Get started quickly with one of these installation options:
   * Description: Get custom credentials for a [provider](https://docs.tryterra.co/reference/health-and-fitness-api/core-concepts#source-provider-integration).
   * Parameters:
     * `provider` (str): The provider to get credentials for.
-* `search_documentation`
-  * Description: Allows the MCP client to search our [docs](https://docs.tryterra.co/).
-  * Parameters:
-    * `query` (str): Search query.
 
 ## Installation
 
