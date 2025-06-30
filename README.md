@@ -1,4 +1,4 @@
-# Terra MCP Server
+# Terra Config MCP Server
 
 A Model Context Protocol server that allows LLMs to configure the [TerraAPI dashboard](https://dashboard.tryterra.co/).
 
